@@ -60,3 +60,6 @@ set number
 if !has('gui_running')
 	  set t_Co=256
   endif
+
+" Add flake8 syntax check to syntastic
+let g:syntastic_python_checkers=['flake8']
