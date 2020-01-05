@@ -1,0 +1,22 @@
+# source: https://github.com/alexanderte/dainty-wsltty
+# MIT License
+
+BackgroundColour=1, 22, 39
+Black=1, 22, 39
+Blue=130, 170, 255
+BoldBlack=87, 86, 86
+BoldBlue=130, 170, 255
+BoldCyan=127, 219, 202
+BoldGreen=34, 218, 110
+BoldMagenta=209, 155, 244
+BoldRed=239, 83, 80
+BoldWhite=255, 255, 255
+BoldYellow=255, 235, 149
+CursorColour=128, 164, 194
+Cyan=33, 199, 168
+ForegroundColour=211, 220, 232
+Green=34, 218, 110
+Magenta=209, 155, 244
+Red=239, 83, 80
+White=255, 255, 255
+Yellow=173, 219, 103
