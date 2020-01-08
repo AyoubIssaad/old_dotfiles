@@ -17,6 +17,8 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'Valloric/YouCompleteMe'
 Plug 'Raimondi/delimitMate'
+Plug 'Yggdroot/indentLine'
+" Plug 'townk/vim-autoclose'
 call plug#end()
 set laststatus=2
 map <C-n> :NERDTreeToggle<CR>

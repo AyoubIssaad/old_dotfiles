@@ -118,6 +118,7 @@ fi
 
 # Add Alias to Dev Folder
 alias devf='cd /mnt/c/Users/ayoub.issaad/Desktop/Personal/github'
+alias mylab='ssh ayoub@10.150.4.39'
 alias devp='/mnt/c/Users/ayoub.issaad/Desktop/Personal/github'
 
 export NVM_DIR="$HOME/.nvm"
