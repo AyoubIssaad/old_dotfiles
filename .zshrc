@@ -1,24 +1,14 @@
-ZSH_DISABLE_COMPFIX=true
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/paxbin/.oh-my-zsh"
+export ZSH="/root/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel9k/powerlevel9k"
-# ZSH_THEME="spaceship"
-# Powerlevel9k Customization
-# POWERLEVEL9K_DISABLE_RPROMPT=true
-# POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-# POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-# POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="▶ "
-# POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-# End Of Powerlevel9k Customization
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -78,10 +68,10 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# ATTENTION PLEASE zsh-syntaxt-highlighting must be the last one on the list
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-# plugins=( [plugins...] zsh-syntax-highlighting)
+plugins=(git zsh-nvm zsh-autosuggestions zsh-syntax-highlighting)
+
 source $ZSH/oh-my-zsh.sh
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -107,41 +97,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias devf="cd /mnt/c/Users/ayoub.issaad/Desktop/Personal/github/"
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=3'
-# -------- POWERLEVEL --------
-POWERLEVEL9K_MODE=nerdfont-complete
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K=truncate_beginning
-POWERLEVEL9K_TIME_BACKGROUND=yellow
-POWERLEVEL9K_TIME_FOREGROUND=black
-POWERLEVEL9K_TIME_FORMAT=%D{%I:%M}
-POWERLEVEL9K_STATUS_VERBOSE=false
-POWERLEVEL9K_VCS_CLEAN_FOREGROUND=black
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND=green
-POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=black
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=yellow
-POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=white
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=black
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=black
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=blue
-POWERLEVEL9K_FOLDER_ICON=
-POWERLEVEL9K_STATUS_OK_IN_NON_VERBOSE=true
-POWERLEVEL9K_STATUS_VERBOSE=false
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
-POWERLEVEL9K_VCS_UNTRACKED_ICON=●
-POWERLEVEL9K_VCS_UNSTAGED_ICON=±
-POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON=↓
-POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON=↑
-POWERLEVEL9K_VCS_COMMIT_ICON=' '
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{blue}╭─%F{red}'
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%F{blue}╰%f '
-POWERLEVEL9K_CUSTOM_OS_ICON='echo ⚡$(whoami) '
-POWERLEVEL9K_CUSTOM_DATE='echo time ⌛'
-POWERLEVEL9K_CUSTOM_OS_ICON_BACKGROUND=red
-POWERLEVEL9K_CUSTOM_OS_ICON_FOREGROUND=white
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_os_icon ssh dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs time)
+# ----- CUSTOM CONFIGURATION -----
+fpath+=$HOME/.zsh/pure
+autoload -U promptinit; promptinit
+prompt pure
