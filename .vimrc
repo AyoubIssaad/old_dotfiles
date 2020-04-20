@@ -16,7 +16,12 @@ set undofile
 set incsearch
 set ignorecase
 set smartcase
-
+set cursorline
+set cursorcolumn
+"Toggle Paste mode using F2
+set pastetoggle=<F2>
+" synchronize Vim clipboard with the system clipboard
+" set clipboard=unnamed,unnamedplus
 " Remove trailing whitespace
 autocmd  BufWritePre * %s/\s\+$//e
 
@@ -51,6 +56,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'leafgarland/typescript-vim'
 Plug 'vim-utils/vim-man'
 Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mbbill/undotree'
 Plug 'scrooloose/nerdtree'
@@ -180,5 +186,5 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \| set shiftwidth=2
 
 autocmd FileType python map <buffer> <F3> :call flake8#Flake8()<CR>
-" Enable hardtime plugin
-let g:hardtime_default_on = 1
+" " Enable hardtime plugin
+" let g:hardtime_default_on = 1
