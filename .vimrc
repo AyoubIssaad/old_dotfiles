@@ -21,7 +21,7 @@ set cursorcolumn
 "Toggle Paste mode using F2
 set pastetoggle=<F2>
 " synchronize Vim clipboard with the system clipboard
-" set clipboard=unnamed,unnamedplus
+set clipboard=unnamed,unnamedplus
 " Remove trailing whitespace
 autocmd  BufWritePre * %s/\s\+$//e
 
@@ -115,47 +115,15 @@ inoremap <C-e> <C-o>A
 
 " --------------------------------------------
 " YCM CONFIGURATION
-" fun! GoYCM()
 nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
 nnoremap <buffer> <silent> <leader>gr :YcmCompleter GoToReferences<CR>
 nnoremap <buffer> <silent> <leader>rr :YcmCompleter RefactorRename<space>
 " let g:ycm_semantic_triggers = { 'c,python,javascript': ['re!(?=[a-zA-Z_])'],}
-" endfun
 
 let g:ycm_autoclose_preview_window_after_completion=1
 "-------------------------------------------------
-" function! s:check_back_space() abort
-"     let col = col('.') - 1
-"     return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-
-"     inoremap <buffer> <silent><expr> <TAB>
-"                 \ pumvisible() ? "\<C-cn>" :
-"                 \ <SID>check_back_space() ? "\<TAB>" :
-"                 \ coc#refresh()
-
-"     inoremap <buffer> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-"     inoremap <buffer> <silent><expr> <C-space> coc#refresh()
-
-"     " GoTo code navigation.
-"     nmap <buffer> <leader>gd <Plug>(coc-definition)
-"     nmap <buffer> <leader>gy <Plug>(coc-type-definition)
-"     nmap <buffer> <leader>gi <Plug>(coc-implementation)
-"     nmap <buffer> <leader>gr <Plug>(coc-references)
-"     nnoremap <buffer> <leader>cr :CocRestart
-" endfun
-
-" fun! TrimWhitespace()
-"     let l:save = winsaveview()
-"     keeppatterns %s/\s\+$//e
-"     call winrestview(l:save)
-" endfun
-
-" autocmd BufWritePre * :call TrimWhitespace()
-" autocmd FileType typescript :call GoYCM()
-" autocmd FileType cpp,cxx,h,hpp,c :call GoCoc()
 " LightLine Fix
-" set laststatus=2
+set laststatus=2
 " --------------------------------------------
 " Syntastic Configuration
 set statusline+=%#warningmsg#
