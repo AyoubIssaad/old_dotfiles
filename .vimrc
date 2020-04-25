@@ -17,6 +17,10 @@ set incsearch
 set ignorecase
 set smartcase
 set cursorline
+" set spell spelllang=en_us
+set complete+=kspell
+set completeopt=menuone,longest
+set shortmess+=c
 set cursorcolumn
 "Toggle Paste mode using F2
 set pastetoggle=<F2>
@@ -70,6 +74,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'vim-syntastic/syntastic'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'christoomey/vim-tmux-navigator'
+" Plug 'mhinz/vim-signify'
 call plug#end()
 
 " END OF VIM PLUG SECTION
