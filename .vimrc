@@ -1,12 +1,12 @@
 " DEFAULT SETUP
 
 syntax on
-set nocompatible
 set noerrorbells
+set encoding=utf-8
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
-set smartindent
+set autoindent
 set number relativenumber
 set nowrap
 set noswapfile
@@ -17,8 +17,9 @@ set incsearch
 set ignorecase
 set smartcase
 set cursorline
-" set spell spelllang=en_us
+set spell spelllang=en_us
 set complete+=kspell
+" hi SpellBad ctermfg=NONE ctermbg=NONE cterm=underline
 set completeopt=menuone,longest
 set shortmess+=c
 set cursorcolumn
@@ -26,16 +27,22 @@ set cursorcolumn
 set pastetoggle=<F2>
 " synchronize Vim clipboard with the system clipboard
 set clipboard=unnamed,unnamedplus
+filetype plugin indent on
 " Remove trailing whitespace
 autocmd  BufWritePre * %s/\s\+$//e
-
-" set colorcolumn=80
-" highlight ColorColumn ctermbg=0 guibg=lightred
+" Change leader from \ to space
+let mapleader = " "
+"Spell Settings
+" # Fix spelling with <leader>f
+nnoremap <leader>f 1z=
+" Toggle spell check
+nnoremap <leader>s :set spell!
 
 " Color Fix
 if !has('gui_running')
       set t_Co=256
 endif
+
 
 "Lightline config
 " Set noshowmode for Lightline duplicate statut
@@ -89,7 +96,6 @@ if executable('rg')
 endif
 
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-let mapleader = " "
 
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
@@ -101,8 +107,6 @@ let g:ctrlp_use_caching = 0
 
 " CUSTOM KEY MAPPINGS
 
-" Change leader from \ to space
-let mapleader = " "
 " nnoremap <leader>h :wincmd h<CR>
 " nnoremap <leader>j :wincmd j<CR>
 " nnoremap <leader>k :wincmd k<CR>
@@ -174,3 +178,7 @@ inoremap <Up> <C-o>:echo "No up for you!"<CR>
 nnoremap <Down> :echo "No down for you!"<CR>
 vnoremap <Down> :<C-u>echo "No down for you!"<CR>
 inoremap <Down> <C-o>:echo "No down for you!"<CR>
+
+" Keep these lines after the the colorscheme plugins
+set colorcolumn=80
+highlight ColorColumn ctermbg=black guibg=black
