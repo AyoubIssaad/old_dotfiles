@@ -1,4 +1,15 @@
+" __________    __________
+" \______   \   \______   \
+"  |    |  _/    |     ___/
+"  |    |   \    |    |
+"  |______  / /\ |____|
+"         \/  \/
+" ---------------------------------------------------
+" A.I (BinaryPax) => Vim custom configuration file
+" Vim Plug as plugin manager
+" ---------------------------------------------------
 " DEFAULT SETUP
+" ---------------------------------------------------
 
 syntax on
 set noerrorbells
@@ -28,6 +39,7 @@ set pastetoggle=<F2>
 " synchronize Vim clipboard with the system clipboard
 set clipboard=unnamed,unnamedplus
 filetype plugin indent on
+" set omnifunc=syntaxcomplete#Complete
 " Remove trailing whitespace
 autocmd  BufWritePre * %s/\s\+$//e
 " Change leader from \ to space
