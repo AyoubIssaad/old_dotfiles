@@ -83,6 +83,12 @@ set background=dark
 
 " For these lines to take effect they must come after the call of Gruvbox
 highlight ColorColumn ctermbg=black guibg=black
+" Transparency
+hi Normal guibg=NONE ctermbg=NONE
+" When enabling transparency (line above), underline for spell check is lost,
+" the following line brings it back
+hi SpellBad cterm=underline
+
 
 " Netrw
 
