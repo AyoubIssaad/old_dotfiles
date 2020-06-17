@@ -47,9 +47,11 @@ filetype plugin indent on
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdtree'
+" Plug 'justinmk/vim-sneak'
+Plug 'unblevable/quick-scope'
 Plug 'ycm-core/YouCompleteMe'
-Plug 'morhetz/gruvbox'
 Plug 'jremmen/vim-ripgrep'
+Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-fugitive'
 Plug 'leafgarland/typescript-vim'
 Plug 'vim-utils/vim-man'
@@ -83,7 +85,8 @@ colorscheme gruvbox
 set background=dark
 
 " For these lines to take effect they must come after the call of Gruvbox
-highlight ColorColumn ctermbg=black guibg=black
+" ctermbg=lightgrey
+highlight ColorColumn guibg=lightblue
 " Transparency
 hi Normal guibg=NONE ctermbg=NONE
 " When enabling transparency (line above), underline for spell check is lost,
@@ -122,16 +125,20 @@ inoremap <C-e> <C-o>A
 " Execute Python3 with <F9>
 nnoremap <buffer> <F9> :exec '!clear;python3' shellescape(@%, 1)<cr>
 
+" Open terminal below
+noremap <leader>t :below terminal<CR>
 " --------------------------------------------
 " Plugins Configuration
 " --------------------------------------------
 
 " YCM
+nmap <leader>D <plug>(YCMHover)
 nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
 nnoremap <buffer> <silent> <leader>gr :YcmCompleter GoToReferences<CR>
 nnoremap <buffer> <silent> <leader>rr :YcmCompleter RefactorRename<space>
 " let g:ycm_semantic_triggers = { 'c,python,javascript': ['re!(?=[a-zA-Z_])'],}
 let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_autoclose_preview_window_after_insertion=1
 
 " lightline
 set laststatus=2
@@ -149,6 +156,11 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers=['flake8']
+
+" Quickscope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 
 " RipGrip
 if executable('rg')
