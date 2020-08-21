@@ -131,6 +131,10 @@ noremap <leader>t :below terminal<CR>
 " Plugins Configuration
 " --------------------------------------------
 
+" Indentline
+let g:indentLine_fileTypeExclude = ['markdown','json']
+" let g:indentLine_setConceal = 0
+
 " YCM
 nmap <leader>D <plug>(YCMHover)
 nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
