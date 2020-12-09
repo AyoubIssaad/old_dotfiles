@@ -10,10 +10,18 @@
 " Don't forget to create the undodir at ~/.vim/undodir
 " ---------------------------------------------------
 "
+" setup folds {{{
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
 " ---------------------------------------------------
-" Basic Settings
+" Basic Configs
 " ---------------------------------------------------
 
+"  basic configs {{{
 syntax on
 set noerrorbells
 set encoding=utf-8
@@ -40,16 +48,20 @@ set cursorcolumn
 set pastetoggle=<F2>
 set clipboard=unnamed,unnamedplus
 filetype plugin indent on
+" }}}
 
 " ---------------------------------------------------
 " Plugins (Vim Plug)
 " ---------------------------------------------------
+
+" plugins {{{
 call plug#begin('~/.vim/plugged')
+Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdtree'
 " Plug 'justinmk/vim-sneak'
 Plug 'unblevable/quick-scope'
-Plug 'ycm-core/YouCompleteMe'
+"Plug 'ycm-core/YouCompleteMe'
 Plug 'jremmen/vim-ripgrep'
 Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-fugitive'
@@ -70,13 +82,16 @@ Plug 'vim-syntastic/syntastic'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'mhinz/vim-signify'
 call plug#end()
+" }}}
 
 " ---------------------------------------------------
 " Aesthetics
 " ---------------------------------------------------
 
+" Aesthetics {{{
 if !has('gui_running')
       set t_Co=256
 endif
@@ -91,20 +106,24 @@ highlight ColorColumn guibg=lightblue
 hi Normal guibg=NONE ctermbg=NONE
 " When enabling transparency (line above), underline for spell check is lost,
 " the following line brings it back
+hi clear SpellBad
 hi SpellBad cterm=underline
-
 
 " Netrw
 
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
+" }}}
 
 " ---------------------------------------------------
 " Custom Mappings & Shortcuts
 " ---------------------------------------------------
 
+" mappings {{{
 let mapleader = " "
+
+nnoremap <silent> <leader>z :Files<CR>
 
 " Fix spelling errors with <leader>f & toggle spell check with <leader>s
 nnoremap <leader>f 1z=
@@ -127,28 +146,28 @@ nnoremap <buffer> <F9> :exec '!clear;python3' shellescape(@%, 1)<cr>
 
 " Open terminal below
 noremap <leader>t :below terminal<CR>
+" }}}
+
 " --------------------------------------------
 " Plugins Configuration
 " --------------------------------------------
+
+" plugins configuration {{{
+" RipGrip
+
+ if executable('rg')
+     let g:rg_derive_root='true'
+ endif
 
 " Indentline
 let g:indentLine_fileTypeExclude = ['markdown','json']
 " let g:indentLine_setConceal = 0
 
-" YCM
-nmap <leader>D <plug>(YCMHover)
-nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
-nnoremap <buffer> <silent> <leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <buffer> <silent> <leader>rr :YcmCompleter RefactorRename<space>
-" let g:ycm_semantic_triggers = { 'c,python,javascript': ['re!(?=[a-zA-Z_])'],}
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_autoclose_preview_window_after_insertion=1
-
 " lightline
 set laststatus=2
 set noshowmode
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'wombat',
       \ }
 
 " Syntastic
@@ -159,28 +178,24 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_checkers=['pylint']
 
 " Quickscope
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
 highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 
-" RipGrip
-if executable('rg')
-    let g:rg_derive_root='true'
-endif
-
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 
-" Flake8
-autocmd FileType python map <buffer> <F3> :call flake8#Flake8()<CR>
+" " Flake8
+" autocmd FileType python map <buffer> <F3> :call flake8#Flake8()<CR>
+" }}}
 
 " --------------------------------------------
 " Auto Commands
 " --------------------------------------------
-
+" auto commands {{{
 " Remove trailing white space at save
 autocmd  BufWritePre * %s/\s\+$//e
 
@@ -195,11 +210,13 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \  set tabstop=2
     \| set softtabstop=2
     \| set shiftwidth=2
+" }}}
 
 " ---------------------------------------------------
 " Temporary settings
 " ---------------------------------------------------
 
+" temporary settings {{{
 " Disable arrow keys
 nnoremap <Left> :echo "No left for you!"<CR>
 vnoremap <Left> :<C-u>echo "No left for you!"<CR>
@@ -213,3 +230,4 @@ inoremap <Up> <C-o>:echo "No up for you!"<CR>
 nnoremap <Down> :echo "No down for you!"<CR>
 vnoremap <Down> :<C-u>echo "No down for you!"<CR>
 inoremap <Down> <C-o>:echo "No down for you!"<CR>
+" }}}
