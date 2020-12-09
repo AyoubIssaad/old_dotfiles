@@ -49,7 +49,8 @@ Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdtree'
 " Plug 'justinmk/vim-sneak'
 Plug 'unblevable/quick-scope'
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
+Plug 'mattn/emmet-vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-fugitive'
@@ -70,6 +71,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'mhinz/vim-signify'
 call plug#end()
 
@@ -91,6 +93,7 @@ highlight ColorColumn guibg=lightblue
 hi Normal guibg=NONE ctermbg=NONE
 " When enabling transparency (line above), underline for spell check is lost,
 " the following line brings it back
+hi clear Spellbad
 hi SpellBad cterm=underline
 
 
@@ -130,25 +133,42 @@ noremap <leader>t :below terminal<CR>
 " --------------------------------------------
 " Plugins Configuration
 " --------------------------------------------
+" Coc
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
+" Emmet
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css EmmetInstall
+
+let g:user_emmet_leader_key='<C-Y>'
+"
 " Indentline
 let g:indentLine_fileTypeExclude = ['markdown','json']
 " let g:indentLine_setConceal = 0
 
-" YCM
-nmap <leader>D <plug>(YCMHover)
-nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
-nnoremap <buffer> <silent> <leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <buffer> <silent> <leader>rr :YcmCompleter RefactorRename<space>
-" let g:ycm_semantic_triggers = { 'c,python,javascript': ['re!(?=[a-zA-Z_])'],}
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_autoclose_preview_window_after_insertion=1
+" " YCM
+" nmap <leader>D <plug>(YCMHover)
+" nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
+" nnoremap <buffer> <silent> <leader>gr :YcmCompleter GoToReferences<CR>
+" nnoremap <buffer> <silent> <leader>rr :YcmCompleter RefactorRename<space>
+" " let g:ycm_semantic_triggers = { 'c,python,javascript': ['re!(?=[a-zA-Z_])'],}
+" let g:ycm_autoclose_preview_window_after_completion=1
+" let g:ycm_autoclose_preview_window_after_insertion=1
 
 " lightline
 set laststatus=2
 set noshowmode
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
+      \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+            \ },
+      \ 'component_function': {
+            \   'gitbranch': 'FugitiveHead'
+                  \ },
       \ }
 
 " Syntastic
