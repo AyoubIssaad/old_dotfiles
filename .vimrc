@@ -45,6 +45,7 @@ set complete+=kspell
 set completeopt=menuone,longest
 set shortmess+=c
 set cursorcolumn
+set scrolloff=8
 set pastetoggle=<F2>
 set clipboard=unnamed,unnamedplus
 filetype plugin indent on
