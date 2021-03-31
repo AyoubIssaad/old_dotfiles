@@ -47,7 +47,7 @@ set shortmess+=c
 set cursorcolumn
 set scrolloff=8
 set pastetoggle=<F2>
-set clipboard=unnamed,unnamedplus
+" set clipboard=unnamed,unnamedplus
 filetype plugin indent on
 " }}}
 
@@ -202,6 +202,10 @@ map <C-n> :NERDTreeToggle<CR>
 " Remove trailing white space at save
 autocmd  BufWritePre * %s/\s\+$//e
 
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" FIX COLON INDENT IN YAML FILE
+au FileType yaml setlocal indentkeys-=<:>
 " ---------------------------------------------------
 " Settings per file type
 " ---------------------------------------------------
