@@ -57,17 +57,36 @@ filetype plugin indent on
 
 " plugins {{{
 call plug#begin('~/.vim/plugged')
+Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-sensible'
+Plug 'scrooloose/nerdtree'
+" Plug 'justinmk/vim-sneak'
 Plug 'unblevable/quick-scope'
+"Plug 'ycm-core/YouCompleteMe'
+Plug 'jremmen/vim-ripgrep'
 Plug 'gruvbox-community/gruvbox'
+Plug 'tpope/vim-fugitive'
+Plug 'leafgarland/typescript-vim'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
+Plug 'scrooloose/nerdtree'
+Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-commentary'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 Plug 'tmhedberg/simpylfold'
+Plug 'nvie/vim-flake8'
 Plug 'Yggdroot/indentLine'
-Plug 'itchyny/lightline.vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+" Plug 'mhinz/vim-signify'
 call plug#end()
 " }}}
 
@@ -80,20 +99,14 @@ if !has('gui_running')
       set t_Co=256
 endif
 
-if (has("termguicolors"))
-      set termguicolors
-      let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-      let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-endif
-
 colorscheme gruvbox
 set background=dark
 
 " For these lines to take effect they must come after the call of Gruvbox
 " ctermbg=lightgrey
-" highlight ColorColumn guibg=lightblue
+highlight ColorColumn guibg=lightblue
 " Transparency
-" hi Normal guibg=NONE ctermbg=NONE
+hi Normal guibg=NONE ctermbg=NONE
 " When enabling transparency (line above), underline for spell check is lost,
 " the following line brings it back
 hi clear SpellBad
@@ -124,6 +137,7 @@ inoremap jh <Esc>
 
 nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <Leader>ps :Rg<SPACE>
 nnoremap <silent> <Leader>+ :vertical resize +5<CR>
 nnoremap <silent> <Leader>- :vertical resize -5<CR>
 
@@ -142,6 +156,12 @@ noremap <leader>t :below terminal<CR>
 " --------------------------------------------
 
 " plugins configuration {{{
+" RipGrip
+
+ if executable('rg')
+     let g:rg_derive_root='true'
+ endif
+
 " Indentline
 let g:indentLine_fileTypeExclude = ['markdown','json']
 " let g:indentLine_setConceal = 0
@@ -152,6 +172,16 @@ set noshowmode
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers=['pylint']
 
 " Quickscope
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -195,4 +225,16 @@ au BufNewFile,BufRead *.js,*.html,*.css
 
 " temporary settings {{{
 " Disable arrow keys
+nnoremap <Left> :echo "No left for you!"<CR>
+vnoremap <Left> :<C-u>echo "No left for you!"<CR>
+inoremap <Left> <C-o>:echo "No left for you!"<CR>
+nnoremap <Right> :echo "No right for you!"<CR>
+vnoremap <Right> :<C-u>echo "No right for you!"<CR>
+inoremap <Right> <C-o>:echo "No right for you!"<CR>
+nnoremap <Up> :echo "No up for you!"<CR>
+vnoremap <Up> :<C-u>echo "No up for you!"<CR>
+inoremap <Up> <C-o>:echo "No up for you!"<CR>
+nnoremap <Down> :echo "No down for you!"<CR>
+vnoremap <Down> :<C-u>echo "No down for you!"<CR>
+inoremap <Down> <C-o>:echo "No down for you!"<CR>
 " }}}
