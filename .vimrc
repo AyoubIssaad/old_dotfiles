@@ -57,7 +57,6 @@ filetype plugin indent on
 
 " plugins {{{
 call plug#begin('~/.vim/plugged')
-Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdtree'
 " Plug 'justinmk/vim-sneak'
@@ -99,12 +98,20 @@ if !has('gui_running')
       set t_Co=256
 endif
 
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+" Fix some colors on Alacritty
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
 colorscheme gruvbox
 set background=dark
 
 " For these lines to take effect they must come after the call of Gruvbox
 " ctermbg=lightgrey
-highlight ColorColumn guibg=lightblue
+" highlight ColorColumn guibg=lightblue
 " Transparency
 hi Normal guibg=NONE ctermbg=NONE
 " When enabling transparency (line above), underline for spell check is lost,
@@ -170,7 +177,7 @@ let g:indentLine_fileTypeExclude = ['markdown','json']
 set laststatus=2
 set noshowmode
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'OldHope',
       \ }
 
 " Syntastic
