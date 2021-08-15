@@ -8,6 +8,7 @@
 " A.I (BinaryPax) => Vim custom configuration file
 " Vim Plug as plugin manager
 " Don't forget to create the undodir at ~/.vim/undodir
+"  dim. août 15 2021 22:16
 " ---------------------------------------------------
 "
 " setup folds {{{
