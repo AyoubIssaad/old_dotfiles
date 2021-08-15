@@ -128,7 +128,13 @@ let g:netrw_winsize = 25
 
 " mappings {{{
 let mapleader = " "
-
+" Easy pasting and yanking
+noremap <leader>y "+y
+noremap <leader>po "+p
+" put current time
+nnoremap <leader>sd :put =strftime('%a %b %d %Y %H:%M')<CR>
+" leader*2 to switch between buffers
+nnoremap <leader><leader> <c-^>
 nnoremap <silent> <leader>z :Files<CR>
 
 " Fix spelling errors with <leader>f & toggle spell check with <leader>s
@@ -154,6 +160,22 @@ nnoremap <buffer> <F9> :exec '!clear;python3' shellescape(@%, 1)<cr>
 noremap <leader>t :below terminal<CR>
 " }}}
 
+" Formatting selected code.
+xmap <leader>gf  <Plug>(coc-format-selected)
+nmap <leader>gf  <Plug>(coc-format-selected)
+
+" Use K to show documentation in preview window.
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   elseif (coc#rpc#ready())
+"     call CocActionAsync('doHover')
+"   else
+"     execute '!' . &keywordprg . " " . expand('<cword>')
+"   endif
+" endfunction
 " --------------------------------------------
 " Plugins Configuration
 " --------------------------------------------
@@ -198,6 +220,23 @@ map <C-n> :NERDTreeToggle<CR>
 " autocmd FileType python map <buffer> <F3> :call flake8#Flake8()<CR>
 " }}}
 
+" Coc
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 " --------------------------------------------
 " Auto Commands
 " --------------------------------------------
