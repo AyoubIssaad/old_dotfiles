@@ -80,6 +80,7 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'junegunn/vim-peekaboo'
 " Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
 " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 " Plug 'mhinz/vim-signify'
@@ -136,6 +137,13 @@ noremap <leader>po "+p
 nnoremap <leader>sd :put =strftime('%a %b %d %Y %H:%M')<CR>
 " leader*2 to switch between buffers
 nnoremap <leader><leader> <c-^>
+" Switch between buffers using left and right arrows
+nnoremap <left> :bp<cr>
+nnoremap <right> :bn<cr>
+
+" Allows you to switch between buffers without saving EVERY TIME:
+set hidden
+
 nnoremap <silent> <leader>z :Files<CR>
 
 " Fix spelling errors with <leader>f & toggle spell check with <leader>s
@@ -177,6 +185,7 @@ nmap <leader>gf  <Plug>(coc-format-selected)
 "     execute '!' . &keywordprg . " " . expand('<cword>')
 "   endif
 " endfunction
+set backspace=indent,eol,start
 " --------------------------------------------
 " Plugins Configuration
 " --------------------------------------------
@@ -268,16 +277,16 @@ au BufNewFile,BufRead *.js,*.html,*.css
 
 " temporary settings {{{
 " Disable arrow keys
-nnoremap <Left> :echo "No left for you!"<CR>
-vnoremap <Left> :<C-u>echo "No left for you!"<CR>
-inoremap <Left> <C-o>:echo "No left for you!"<CR>
-nnoremap <Right> :echo "No right for you!"<CR>
-vnoremap <Right> :<C-u>echo "No right for you!"<CR>
-inoremap <Right> <C-o>:echo "No right for you!"<CR>
-nnoremap <Up> :echo "No up for you!"<CR>
-vnoremap <Up> :<C-u>echo "No up for you!"<CR>
-inoremap <Up> <C-o>:echo "No up for you!"<CR>
-nnoremap <Down> :echo "No down for you!"<CR>
-vnoremap <Down> :<C-u>echo "No down for you!"<CR>
-inoremap <Down> <C-o>:echo "No down for you!"<CR>
-" }}}
+" nnoremap <Left> :echo "No left for you!"<CR>
+" vnoremap <Left> :<C-u>echo "No left for you!"<CR>
+" inoremap <Left> <C-o>:echo "No left for you!"<CR>
+" nnoremap <Right> :echo "No right for you!"<CR>
+" vnoremap <Right> :<C-u>echo "No right for you!"<CR>
+" inoremap <Right> <C-o>:echo "No right for you!"<CR>
+" nnoremap <Up> :echo "No up for you!"<CR>
+" vnoremap <Up> :<C-u>echo "No up for you!"<CR>
+" inoremap <Up> <C-o>:echo "No up for you!"<CR>
+" nnoremap <Down> :echo "No down for you!"<CR>
+" vnoremap <Down> :<C-u>echo "No down for you!"<CR>
+" inoremap <Down> <C-o>:echo "No down for you!"<CR>
+" " }}}
