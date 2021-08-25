@@ -8,21 +8,17 @@
 " A.I (BinaryPax) => Vim custom configuration file
 " Vim Plug as plugin manager
 " Don't forget to create the undodir at ~/.vim/undodir
-"  dim. août 15 2021 22:16
+" Wed Aug 25 2021 22:35
 " ---------------------------------------------------
 "
-" setup folds {{{
+" SETUP FOLDS {{{
 augroup filetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
 
-" ---------------------------------------------------
-" Basic Configs
-" ---------------------------------------------------
-
-"  basic configs {{{
+"  BASIC CONFIGS {{{
 syntax on
 set noerrorbells
 set encoding=utf-8
@@ -48,15 +44,14 @@ set shortmess+=c
 set cursorcolumn
 set scrolloff=8
 set pastetoggle=<F2>
+set backspace=indent,eol,start
 " set clipboard=unnamed,unnamedplus
 filetype plugin indent on
+" Allows you to switch between buffers without saving EVERY TIME:
+set hidden
 " }}}
 
-" ---------------------------------------------------
-" Plugins (Vim Plug)
-" ---------------------------------------------------
-
-" plugins {{{
+" PLUGINS {{{
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdtree'
@@ -87,11 +82,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 " }}}
 
-" ---------------------------------------------------
-" Aesthetics
-" ---------------------------------------------------
+" AESTHETICS {{{
 
-" Aesthetics {{{
 if !has('gui_running')
       set t_Co=256
 endif
@@ -110,6 +102,7 @@ set background=dark
 " For these lines to take effect they must come after the call of Gruvbox
 " ctermbg=lightgrey
 " highlight ColorColumn guibg=lightblue
+
 " Transparency
 hi Normal guibg=NONE ctermbg=NONE
 " When enabling transparency (line above), underline for spell check is lost,
@@ -122,13 +115,11 @@ hi SpellBad cterm=underline
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
+
 " }}}
 
-" ---------------------------------------------------
-" Custom Mappings & Shortcuts
-" ---------------------------------------------------
+" CUSTOM MAPPINGS & SHORTCUT {{{
 
-" mappings {{{
 let mapleader = " "
 " Easy pasting and yanking
 noremap <leader>y "+y
@@ -141,9 +132,7 @@ nnoremap <leader><leader> <c-^>
 nnoremap <left> :bp<cr>
 nnoremap <right> :bn<cr>
 
-" Allows you to switch between buffers without saving EVERY TIME:
-set hidden
-
+" Naviguate using fzf
 nnoremap <silent> <leader>z :Files<CR>
 
 " Fix spelling errors with <leader>f & toggle spell check with <leader>s
@@ -167,7 +156,6 @@ nnoremap <buffer> <F9> :exec '!clear;python3' shellescape(@%, 1)<cr>
 
 " Open terminal below
 noremap <leader>t :below terminal<CR>
-" }}}
 
 " Formatting selected code.
 xmap <leader>gf  <Plug>(coc-format-selected)
@@ -185,12 +173,11 @@ nmap <leader>gf  <Plug>(coc-format-selected)
 "     execute '!' . &keywordprg . " " . expand('<cword>')
 "   endif
 " endfunction
-set backspace=indent,eol,start
-" --------------------------------------------
-" Plugins Configuration
-" --------------------------------------------
 
-" plugins configuration {{{
+" }}}
+
+" PLUGINS CONFIGURATION {{{
+
 " RipGrip
 
  if executable('rg')
@@ -228,7 +215,6 @@ map <C-n> :NERDTreeToggle<CR>
 
 " " Flake8
 " autocmd FileType python map <buffer> <F3> :call flake8#Flake8()<CR>
-" }}}
 
 " Coc
 inoremap <silent><expr> <TAB>
@@ -247,10 +233,10 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-" --------------------------------------------
-" Auto Commands
-" --------------------------------------------
-" auto commands {{{
+" }}}
+
+" AUTO COMMANDS {{{
+
 " Remove trailing white space at save
 autocmd  BufWritePre * %s/\s\+$//e
 
@@ -271,11 +257,8 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \| set shiftwidth=2
 " }}}
 
-" ---------------------------------------------------
-" Temporary settings
-" ---------------------------------------------------
+" TEMPORARY SETTINGS {{{
 
-" temporary settings {{{
 " Disable arrow keys
 " nnoremap <Left> :echo "No left for you!"<CR>
 " vnoremap <Left> :<C-u>echo "No left for you!"<CR>
