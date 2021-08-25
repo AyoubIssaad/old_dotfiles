@@ -10,10 +10,13 @@
 " Don't forget to create the undodir at ~/.vim/undodir
 " ---------------------------------------------------
 "
-" ---------------------------------------------------
-" Basic Settings
-" ---------------------------------------------------
-
+" setup folds {{{
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+" BASIC SETTINGS {{{
 syntax on
 set noerrorbells
 set encoding=utf-8
@@ -37,23 +40,20 @@ set complete+=kspell
 set completeopt=menuone,longest
 set shortmess+=c
 set cursorcolumn
+set scrolloff=8
 set pastetoggle=<F2>
 set clipboard=unnamed,unnamedplus
 filetype plugin indent on
+" }}}
 
-" ---------------------------------------------------
-" Plugins (Vim Plug)
-" ---------------------------------------------------
+" PLUGINS {{{
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdtree'
-" Plug 'justinmk/vim-sneak'
 Plug 'unblevable/quick-scope'
-Plug 'ycm-core/YouCompleteMe'
 Plug 'jremmen/vim-ripgrep'
 Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-fugitive'
-Plug 'leafgarland/typescript-vim'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'scrooloose/nerdtree'
@@ -70,27 +70,41 @@ Plug 'vim-syntastic/syntastic'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'junegunn/vim-peekaboo'
+Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
+" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+" Plug 'plasticboy/vim-markdown'
+Plug 'srcery-colors/srcery-vim'
 " Plug 'mhinz/vim-signify'
 call plug#end()
+" }}}
 
-" ---------------------------------------------------
-" Aesthetics
-" ---------------------------------------------------
-
+" AESTHETICS {{{
 if !has('gui_running')
       set t_Co=256
 endif
 
-colorscheme gruvbox
-set background=dark
+" This is only necessary if you use "set termguicolors".
+
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+
+colorscheme srcery
+" set background=dark
 
 " For these lines to take effect they must come after the call of Gruvbox
 " ctermbg=lightgrey
-highlight ColorColumn guibg=lightblue
+" highlight ColorColumn guibg=lightblue
+
 " Transparency
 hi Normal guibg=NONE ctermbg=NONE
 " When enabling transparency (line above), underline for spell check is lost,
 " the following line brings it back
+hi clear SpellBad
 hi SpellBad cterm=underline
 
 
@@ -99,12 +113,26 @@ hi SpellBad cterm=underline
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
+" }}}
 
-" ---------------------------------------------------
-" Custom Mappings & Shortcuts
-" ---------------------------------------------------
 
+" Custom Mappings & Shortcuts {{{
 let mapleader = " "
+" Easy pasting and yanking
+noremap <leader>y "+y
+noremap <leader>po "+p
+" put current time
+nnoremap <leader>sd :put =strftime('%a %b %d %Y %H:%M')<CR>
+" leader*2 to switch between buffers
+nnoremap <leader><leader> <c-^>
+" Switch between buffers using left and right arrows
+nnoremap <left> :bp<cr>
+nnoremap <right> :bn<cr>
+
+" Allows you to switch between buffers without saving EVERY TIME:
+set hidden
+
+nnoremap <silent> <leader>z :Files<CR>
 
 " Fix spelling errors with <leader>f & toggle spell check with <leader>s
 nnoremap <leader>f 1z=
@@ -127,63 +155,95 @@ nnoremap <buffer> <F9> :exec '!clear;python3' shellescape(@%, 1)<cr>
 
 " Open terminal below
 noremap <leader>t :below terminal<CR>
-" --------------------------------------------
-" Plugins Configuration
-" --------------------------------------------
+
+" Formatting selected code.
+xmap <leader>gf  <Plug>(coc-format-selected)
+nmap <leader>gf  <Plug>(coc-format-selected)
+
+" }}}
+
+" PLUGINS CONFIGURATION {{{
+
+" RipGrip
+
+ if executable('rg')
+     let g:rg_derive_root='true'
+ endif
 
 " Indentline
 let g:indentLine_fileTypeExclude = ['markdown','json']
 " let g:indentLine_setConceal = 0
 
-" YCM
-nmap <leader>D <plug>(YCMHover)
-nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
-nnoremap <buffer> <silent> <leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <buffer> <silent> <leader>rr :YcmCompleter RefactorRename<space>
-" let g:ycm_semantic_triggers = { 'c,python,javascript': ['re!(?=[a-zA-Z_])'],}
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_autoclose_preview_window_after_insertion=1
-
 " lightline
 set laststatus=2
 set noshowmode
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'OldHope',
       \ }
 
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers=['flake8']
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_python_checkers=['pylint']
 
 " Quickscope
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
 highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 
-" RipGrip
-if executable('rg')
-    let g:rg_derive_root='true'
-endif
-
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 
 " Flake8
-autocmd FileType python map <buffer> <F3> :call flake8#Flake8()<CR>
+" autocmd FileType python map <buffer> <F3> :call flake8#Flake8()<CR>
 
-" --------------------------------------------
-" Auto Commands
-" --------------------------------------------
+" Coc
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+"
+" Use K to show documentation in preview window.
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   elseif (coc#rpc#ready())
+"     call CocActionAsync('doHover')
+"   else
+"     execute '!' . &keywordprg . " " . expand('<cword>')
+"   endif
+" endfunction
+" set backspace=indent,eol,start
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" }}}
+
+" AUTO COMMANDS {{{
 " Remove trailing white space at save
 autocmd  BufWritePre * %s/\s\+$//e
 
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" FIX COLON INDENT IN YAML FILE
+au FileType yaml setlocal indentkeys-=<:>
 " ---------------------------------------------------
 " Settings per file type
 " ---------------------------------------------------
@@ -195,21 +255,20 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \  set tabstop=2
     \| set softtabstop=2
     \| set shiftwidth=2
+" }}}
 
-" ---------------------------------------------------
-" Temporary settings
-" ---------------------------------------------------
-
+" TEMPORARY SETTINGS {{{
 " Disable arrow keys
-nnoremap <Left> :echo "No left for you!"<CR>
-vnoremap <Left> :<C-u>echo "No left for you!"<CR>
-inoremap <Left> <C-o>:echo "No left for you!"<CR>
-nnoremap <Right> :echo "No right for you!"<CR>
-vnoremap <Right> :<C-u>echo "No right for you!"<CR>
-inoremap <Right> <C-o>:echo "No right for you!"<CR>
-nnoremap <Up> :echo "No up for you!"<CR>
-vnoremap <Up> :<C-u>echo "No up for you!"<CR>
-inoremap <Up> <C-o>:echo "No up for you!"<CR>
-nnoremap <Down> :echo "No down for you!"<CR>
-vnoremap <Down> :<C-u>echo "No down for you!"<CR>
-inoremap <Down> <C-o>:echo "No down for you!"<CR>
+" nnoremap <Left> :echo "No left for you!"<CR>
+" vnoremap <Left> :<C-u>echo "No left for you!"<CR>
+" inoremap <Left> <C-o>:echo "No left for you!"<CR>
+" nnoremap <Right> :echo "No right for you!"<CR>
+" vnoremap <Right> :<C-u>echo "No right for you!"<CR>
+" inoremap <Right> <C-o>:echo "No right for you!"<CR>
+" nnoremap <Up> :echo "No up for you!"<CR>
+" vnoremap <Up> :<C-u>echo "No up for you!"<CR>
+" inoremap <Up> <C-o>:echo "No up for you!"<CR>
+" nnoremap <Down> :echo "No down for you!"<CR>
+" vnoremap <Down> :<C-u>echo "No down for you!"<CR>
+" inoremap <Down> <C-o>:echo "No down for you!"<CR>
+" }}}
