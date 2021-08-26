@@ -75,6 +75,7 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'mattn/emmet-vim'
 " Plug 'junegunn/vim-peekaboo'
 " Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
 " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -177,6 +178,14 @@ nmap <leader>gf  <Plug>(coc-format-selected)
 " }}}
 
 " PLUGINS CONFIGURATION {{{
+
+" Emmet
+" Change <c-y>, to ,,
+" let g:user_emmet_leader_key='<C-Z>'
+imap ,, <C-y>,
+" Enable Emmet for html & css only
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
 " RipGrip
 

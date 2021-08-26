@@ -7,6 +7,8 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Support go path
+export PATH="$PATH:$HOME/go/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/aub/.oh-my-zsh"
@@ -115,6 +117,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Copy to clipboard using xclip
 alias copy='xclip -sel clip'
+alias v='vim'
+# create folder and cd into it
+# alias mcd() { mkdir -p "$1"; cd "$1";}
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -128,3 +133,10 @@ source <(minikube completion zsh) # for zsh users
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+
+# hcloud zsh completion
+fpath+=(~/.config/hcloud/completion/zsh)
+
+# Export vim as environement
+export EDITOR=vim
+source <(kubectl completion zsh)
