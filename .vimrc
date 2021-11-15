@@ -56,7 +56,7 @@ call plug#begin('~/.vim/plugged')
  Plug 'tpope/vim-sensible'
  Plug 'scrooloose/nerdtree'
  Plug 'unblevable/quick-scope'
- Plug 'jremmen/vim-ripgrep'
+ " Plug 'jremmen/vim-ripgrep' # enable this when plugin updated
  Plug 'gruvbox-community/gruvbox'
  Plug 'tpope/vim-fugitive'
  Plug 'vim-utils/vim-man'
@@ -194,6 +194,12 @@ autocmd FileType html,css EmmetInstall
  if executable('rg')
      let g:rg_derive_root='true'
  endif
+" FZF With RIPGREP
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 " Indentline
 let g:indentLine_fileTypeExclude = ['markdown','json']
