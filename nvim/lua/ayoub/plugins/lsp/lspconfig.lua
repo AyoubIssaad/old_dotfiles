@@ -83,6 +83,13 @@ lspconfig["emmet_ls"].setup({
   filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 })
 
+-- Configure Pyright language server
+require('lspconfig')['pyright'].setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+    -- flags = lsp_flags,
+}
+
 -- configure lua server (with special settings)
 lspconfig["sumneko_lua"].setup({
   capabilities = capabilities,
