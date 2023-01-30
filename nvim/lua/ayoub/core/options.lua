@@ -29,10 +29,19 @@ opt.signcolumn = "yes"
 opt.backspace = "indent,eol,start"
 
 -- clipboard
-opt.clipboard:append("unnamedplus")
+-- opt.clipboard:append("unnamedplus")
 
 -- split windows
 opt.splitright = true
 opt.splitbelow = true
 
 opt.iskeyword:append("-") -- adds dash (-) to the world, so when deleting a word containing a dash it deletes the whole word
+
+-- Set scrolloff to 8
+opt.scrolloff = 8
+
+-- Set an undo file to keep history of changes
+-- set undodir=~/.vim/undodir
+-- opt.undodir=vim.fn.stdpath('config') .. '/undodir'
+opt.undodir = "~/.config/nvim/undodir"
+opt.undofile = true
